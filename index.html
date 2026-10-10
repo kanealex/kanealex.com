@@ -4,58 +4,141 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kane Alexander</title>
-<meta name="description" content="Kane Alexander's projects: OBD Dash, a free OBD-II dashboard for your phone browser, and Semantic Drift, a word-vector game.">
+<meta name="description" content="Kane Alexander builds small, focused web apps: OBD Dash, a free OBD-II dashboard for your phone, and Semantic Drift, a word game played through word vectors.">
+<link rel="canonical" href="https://kanealex.com/">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kanealex.com/">
+<meta property="og:title" content="Kane Alexander">
+<meta property="og:description" content="Small, focused web apps: OBD Dash and Semantic Drift.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kane Alexander">
+<meta name="twitter:description" content="Small, focused web apps: OBD Dash and Semantic Drift.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232f5bd3'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff'%3EKA%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #f7f7f5; --fg: #1b1b1b; --muted: #5d5d5d;
-    --card: #ffffff; --border: #e3e3df; --accent: #2457d6;
+    --bg: #f6f5f2; --fg: #18191b; --muted: #5f6368; --faint: #8a8f96;
+    --card: #ffffff; --border: #e4e2dc; --border-strong: #d2cfc7;
+    --accent: #2f5bd3; --accent-soft: rgba(47, 91, 211, .09);
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.12);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #121315; --fg: #ececec; --muted: #a3a3a3;
-      --card: #1b1d20; --border: #2c2f33; --accent: #7aa2ff;
+      --bg: #111214; --fg: #ececec; --muted: #a2a6ad; --faint: #757a82;
+      --card: #191b1e; --border: #26292d; --border-strong: #353a40;
+      --accent: #84a6ff; --accent-soft: rgba(132, 166, 255, .1);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
     }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--fg);
-    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  main { max-width: 720px; margin: 0 auto; padding: 64px 16px 48px; }
-  h1 { font-size: 2.2rem; margin: 0 0 8px; letter-spacing: -0.02em; }
-  .intro { color: var(--muted); margin: 0 0 40px; }
-  .cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  a.card {
-    display: block; padding: 20px; border-radius: 12px; text-decoration: none;
-    background: var(--card); border: 1px solid var(--border); color: var(--fg);
-    transition: border-color .15s, transform .15s;
+  a { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 88px 16px 40px; }
+
+  .hero { margin-bottom: 56px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px;
+    font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--faint);
   }
-  a.card:hover, a.card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
-  a.card h2 { margin: 0 0 6px; font-size: 1.15rem; }
-  a.card p { margin: 0; color: var(--muted); font-size: .95rem; }
-  a.card .go { display: inline-block; margin-top: 12px; color: var(--accent); font-size: .9rem; }
-  footer { margin-top: 48px; color: var(--muted); font-size: .95rem; }
-  footer a { color: var(--accent); }
+  .eyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--accent); }
+  h1 { font-size: clamp(2.3rem, 7vw, 3.4rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.035em; }
+  .intro { font-size: 1.15rem; color: var(--muted); margin: 0; max-width: 34em; }
+
+  .section-label {
+    font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--faint); margin: 0 0 14px; font-weight: 600;
+  }
+  .cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card {
+    position: relative; display: flex; flex-direction: column;
+    padding: 22px 22px 18px; border-radius: 16px;
+    background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow);
+    transition: border-color .18s, transform .18s;
+  }
+  .card:hover, .card:focus-within { border-color: var(--border-strong); transform: translateY(-2px); }
+  .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .icon {
+    flex: none; width: 40px; height: 40px; border-radius: 11px;
+    display: grid; place-items: center; background: var(--accent-soft); color: var(--accent);
+  }
+  .icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h2 { font-size: 1.15rem; margin: 0; letter-spacing: -0.01em; }
+  .card h2 a { color: inherit; text-decoration: none; }
+  /* Whole card is clickable via the title link; Source stays separately clickable above it. */
+  .card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
+  .card p { margin: 0 0 18px; color: var(--muted); font-size: .97rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; padding: 0; list-style: none; }
+  .tags li {
+    font-size: .75rem; color: var(--muted); border: 1px solid var(--border);
+    border-radius: 999px; padding: 1px 9px;
+  }
+  .links { margin-top: auto; display: flex; gap: 16px; align-items: center; font-size: .92rem; }
+  .links .live { color: var(--accent); font-weight: 600; }
+  .links .live::after { content: " \2192"; }
+  .links .source { position: relative; z-index: 1; color: var(--muted); text-decoration: none; }
+  .links .source:hover { color: var(--fg); text-decoration: underline; }
+
+  footer {
+    margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+    color: var(--faint); font-size: .9rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--fg); text-decoration: underline; }
+
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  @media (max-width: 520px) { main { padding-top: 56px; } .hero { margin-bottom: 40px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <main>
-  <h1>Kane Alexander</h1>
-  <p class="intro">I build small web apps and tools. Here's what I'm working on.</p>
+  <header class="hero">
+    <p class="eyebrow">kanealex.com</p>
+    <h1>Kane Alexander</h1>
+    <p class="intro">I build small, focused web apps that do one thing well, and run them on my own little server.</p>
+  </header>
+
+  <p class="section-label">Projects</p>
   <div class="cards">
-    <a class="card" href="https://obd.kanealex.com">
-      <h2>OBD Dash</h2>
-      <p>Free OBD-II dashboard for your phone browser, works with ELM327 Bluetooth adapters.</p>
-      <span class="go">obd.kanealex.com &rarr;</span>
-    </a>
-    <a class="card" href="https://semanticdrift.kanealex.com">
-      <h2>Semantic Drift</h2>
-      <p>A word game played through word vectors: drift from one word to another by meaning.</p>
-      <span class="go">semanticdrift.kanealex.com &rarr;</span>
-    </a>
+    <article class="card">
+      <div class="card-head">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.3 18a10 10 0 1 1 17.4 0"/><path d="M12 14l4.5-4.5"/></svg></span>
+        <h2><a href="https://obd.kanealex.com">OBD Dash</a></h2>
+      </div>
+      <p>A free OBD-II dashboard that runs in your phone's browser. Live gauges, trip stats and fault codes from an ELM327 Bluetooth adapter.</p>
+      <ul class="tags"><li>Web Bluetooth</li><li>PWA</li><li>Android Auto</li></ul>
+      <div class="links">
+        <span class="live">Open</span>
+        <a class="source" href="https://github.com/kanealex/obd-dash">Source</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="5" cy="17" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="19" cy="15" r="2"/><path d="M6.4 15.4l4.2-6.8M13.6 8.3l4 5.2"/></svg></span>
+        <h2><a href="https://semanticdrift.kanealex.com">Semantic Drift</a></h2>
+      </div>
+      <p>A word game played through word vectors: drift from one word to another, one step of meaning at a time.</p>
+      <ul class="tags"><li>Word game</li><li>GloVe vectors</li><li>Daily puzzle</li></ul>
+      <div class="links">
+        <span class="live">Play</span>
+      </div>
+    </article>
   </div>
-  <footer><a href="https://github.com/kanealex">github.com/kanealex</a></footer>
+
+  <footer>
+    <span>&copy; <span id="year">2026</span> Kane Alexander</span>
+    <a href="https://github.com/kanealex">github.com/kanealex</a>
+  </footer>
 </main>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script data-goatcounter="https://kanealex.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
