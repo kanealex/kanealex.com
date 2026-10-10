@@ -1,0 +1,24 @@
+name: Deploy homepage
+
+# Runs on every push to main: pulls the latest main into /var/www/kanealex on
+# the Vultr server, which Caddy serves at kanealex.com. Uses the same
+# deploy-only SSH key as Semantic Drift and OBD Dash (DEPLOY_SSH_KEY secret).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull latest main on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            git -C /var/www/kanealex pull --ff-only
+            git -C /var/www/kanealex log -1 --oneline
